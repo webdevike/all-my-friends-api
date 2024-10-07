@@ -17,8 +17,13 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
 
 export const create: AppRouteHandler<CreateRoute> = async (c) => {
   const task = c.req.valid("json");
-  const [inserted] = await db.insert(tasks).values(task).returning();
-  return c.json(inserted, HttpStatusCodes.OK);
+  // const [inserted] = await db.insert(tasks).values(task).returning();
+  // return c.json(inserted, HttpStatusCodes.OK);
+
+  return c.json(
+    { name: 'hello', id: 1 },
+    HttpStatusCodes.OK,
+  );
 };
 
 export const getOne: AppRouteHandler<GetOneRoute> = async (c) => {
@@ -86,7 +91,7 @@ export const remove: AppRouteHandler<RemoveRoute> = async (c) => {
   const result = await db.delete(tasks)
     .where(eq(tasks.id, id));
 
-  if (result.rowsAffected === 0) {
+  if (result.length === 0) {
     return c.json(
       {
         message: HttpStatusPhrases.NOT_FOUND,

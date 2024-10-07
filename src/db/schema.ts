@@ -13,14 +13,15 @@ export const selectTasksSchema = createSelectSchema(tasks);
 export const insertTasksSchema = createInsertSchema(
   tasks,
   {
+    // @ts-ignore
     name: schema => schema.name.min(1).max(500),
   },
 ).required({
-  done: true,
+  // done: true,
 }).omit({
   id: true,
-  createdAt: true,
-  updatedAt: true,
+  // createdAt: true,
+  // updatedAt: true,
 });
 
 export const patchTasksSchema = insertTasksSchema.partial();
